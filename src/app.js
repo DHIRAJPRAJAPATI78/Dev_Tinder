@@ -1,20 +1,14 @@
 const express = require("express");
+const connectDB = require("./config/database");
 const app = express();
-
-app.use("/post ", (req, res) => {
-  res.send("this is post call");
-});
-app.post("/test", (req, res) => {
-  res.send("Hello World !");
-});
-
-app.get("/dev", (req, res) => {
-  res.send("Hello dev !");
-});
-app.delete("/", (req, res) => {
-  res.send("Hello there how are you!");
-});
-
-app.listen(7000, () => {
-  console.log("Server is running on port 7000");
-});
+connectDB()
+  .then(() => {
+    console.log("Database establlished");
+    // right way to put start server is there (after connecting to the database)
+    app.listen(7000, () => {
+      console.log("Server is running on port 7000");
+    });
+  })
+  .catch((err) => {
+    console.log("Database cannot be connected");
+  });
