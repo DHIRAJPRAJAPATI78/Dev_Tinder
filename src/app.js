@@ -36,6 +36,15 @@ app.post("/signup", async (req, res) => {
     res.status(400).send("bhai error hai");
   }
 });
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    await User.findByIdAndDelete(userId);
+    res.send("user deleted sucessfully");
+  } catch {
+    res.status(404).send("error hai");
+  }
+});
 
 connectDB()
   .then(() => {
