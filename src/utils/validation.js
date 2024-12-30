@@ -12,7 +12,15 @@ const validateSignupData = (req) => {
 };
 
 const validateEditProfile = (req) => {
-  const validData = ["firstName", "lastName", "age", "gender", "skills"];
+  const validData = [
+    "firstName",
+    "lastName",
+    "age",
+    "gender",
+    "skills",
+    "about",
+    "photoUrl",
+  ];
   const isValid = Object.keys(req.body).every((fields) =>
     validData.includes(fields)
   );

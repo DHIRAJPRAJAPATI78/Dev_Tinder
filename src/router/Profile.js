@@ -2,14 +2,7 @@ const { userAuth } = require("../middlewares/userAuth");
 const { validateEditProfile } = require("../utils/validation");
 const express = require("express");
 const profileRouter = express.Router();
-profileRouter.get("/profile", userAuth, async (req, res) => {
-  try {
-    console.log(userAuth);
-    res.send(req.user);
-  } catch (err) {
-    res.status(404).send(err);
-  }
-});
+
 profileRouter.get("/profile/view", userAuth, async (req, res) => {
   try {
     const user = req.user;
@@ -27,6 +20,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
     Object.keys(req.body).forEach((key) => (loggedInUser[key] = req.body[key]));
     await loggedInUser.save();
     console.log(loggedInUser);
+    res.json({ message: "Profile successfully updated !!!" });
   } catch (err) {
     res.status(404).send(err);
   }

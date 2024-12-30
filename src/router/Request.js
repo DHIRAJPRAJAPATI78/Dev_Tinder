@@ -1,5 +1,6 @@
 const { userAuth } = require("../middlewares/userAuth");
 const ConnectionRequest = require("../models/connectionRequest");
+const User = require("../models/user");
 const express = require("express");
 const requestRouter = express.Router();
 requestRouter.post(
@@ -10,6 +11,7 @@ requestRouter.post(
       const fromUserId = req.user._id;
       const toUserId = req.params.toUserId;
       const status = req.params.status;
+      console.log(status);
       // toUserId present in the db ---> case1
       const toUser = await User.findById(toUserId);
       if (!toUser) {
@@ -46,7 +48,7 @@ requestRouter.post(
         data,
       });
     } catch (err) {
-      res.status(404).send("Error", err);
+      res.status(404).send({ message: "error" + err });
     }
   }
 );
